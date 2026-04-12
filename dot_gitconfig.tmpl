@@ -1,0 +1,31 @@
+[user]
+	email = {{ .email }}
+	name = {{ .name }}
+[alias]
+	s = status
+	a = add
+	c = commit
+	co = checkout
+	b = branch
+	df = diff
+	ps = push
+	pl = pull
+	lo = log --oneline
+[init]
+	defaultBranch = main
+[push]
+	default = current
+[credential "https://github.com"]
+	helper =
+	helper = !gh auth git-credential
+[credential "https://gist.github.com"]
+	helper =
+	helper = !gh auth git-credential
+[pager]
+	branch = false
+{{ if eq .chezmoi.os "windows" -}}
+[core]
+	autoCRLF = false
+	eol = lf
+	symlinks = true
+{{ end -}}

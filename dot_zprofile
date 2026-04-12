@@ -1,0 +1,4 @@
+# Reuse common login-shell environment settings.
+if [ -f "$HOME/.profile" ]; then
+    . "$HOME/.profile"
+fi
