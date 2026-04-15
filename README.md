@@ -79,3 +79,10 @@ Manages shared instructions for GitHub Copilot. The template embeds `AGENTS.md` 
 
 - chezmoi path: `dot_github/`
 - target path: `~/.github/`
+
+### Hammerspoon
+
+macOS only: manages [Hammerspoon](https://www.hammerspoon.org/) configuration for macOS-level key remapping. Used for two purposes: remapping keys on the Mac itself, and remapping keys sent from Windows via [Deskflow](https://github.com/deskflow/deskflow).
+
+- chezmoi path: `dot_hammerspoon/`
+- target path: `~/.hammerspoon/`
