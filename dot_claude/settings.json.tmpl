@@ -1,4 +1,18 @@
+{{- $homeDir := .chezmoi.homeDir | replace "\\" "/" -}}
 {
+  "hooks": {
+    "PreToolUse": [
+      {
+        "matcher": "Bash",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "node {{ $homeDir }}/.claude/hooks/pipe-permission.js"
+          }
+        ]
+      }
+    ]
+  },
   "permissions": {
     "defaultMode": "acceptEdits",
     "allow": [
