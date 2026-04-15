@@ -1,13 +1,25 @@
+# Repository files
 README.md
+
+# Zsh compiled files
 **/*.zwc
+
+# Oh My Zsh cache
 .oh-my-zsh/cache/
 
 {{ if eq .chezmoi.os "windows" -}}
+# Unix-only shell config
 dot_profile
 dot_zshrc
 dot_zprofile
 dot_p10k.zsh
 {{ else -}}
+# Windows-only config
 .wslconfig
 Documents/
+{{- end }}
+
+# macOS-only config
+{{ if ne .chezmoi.os "darwin" -}}
+.hammerspoon/
 {{- end }}
