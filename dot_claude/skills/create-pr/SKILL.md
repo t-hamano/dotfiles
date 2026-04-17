@@ -13,21 +13,30 @@ Create a GitHub pull request by reading `pull_request_template.md`, building the
 2. If the current branch is `main` or `trunk`, stop immediately and ask the user to switch to a feature branch.
 3. Verify GitHub CLI authentication before attempting PR creation:
    - `gh auth status`
-4. Identify the base branch (usually `main` or `trunk`) and collect diff context:
+4. Detect whether the repository is a fork and determine the PR target repository:
+   - `gh repo view --json isFork,parent,nameWithOwner`
+   - If `isFork` is `true`, the PR target must be the upstream (`parent.nameWithOwner`), not the fork itself. Record it as `<target-repo>`.
+   - If `isFork` is `false`, `<target-repo>` is the current repository (omit `--repo` later).
+5. Identify the base branch (usually `main` or `trunk`) and collect diff context:
    - `git branch`
-   - `git diff <base-branch>...HEAD`
-5. Locate and read the PR template file:
+   - For forks, compare against the upstream base: `git diff <target-repo-owner>/<base-branch>...HEAD` (fetch upstream first if needed).
+   - Otherwise: `git diff <base-branch>...HEAD`
+6. Locate and read the PR template file:
    - Prefer `.github/pull_request_template.md` or `.github/PULL_REQUEST_TEMPLATE.md`.
    - If not found, search for `pull_request_template.md` in the repository and use that file.
-6. Build the PR description by following the template structure exactly (keep headings/sections, fill required fields, remove unresolved placeholders).
-7. Save the PR body to a temporary file (for example, `pr_body.md`) so formatting is preserved.
-8. Create the PR in draft status with an explicit head branch:
-   - `gh pr create --draft --base <base-branch> --head <current-branch> --title "<PR title>" --body-file pr_body.md`
-9. Report the created PR URL and summarize what was filled in each template section.
+   - For forks, prefer the upstream repository's template over the fork's local copy if they differ.
+7. Build the PR description by following the template structure exactly (keep headings/sections, fill required fields, remove unresolved placeholders).
+8. Save the PR body to a temporary file (for example, `pr_body.md`) so formatting is preserved.
+9. Create the PR in draft status with an explicit head branch:
+   - Non-fork: `gh pr create --draft --base <base-branch> --head <current-branch> --title "<PR title>" --body-file pr_body.md`
+   - Fork: `gh pr create --draft --repo <target-repo> --base <base-branch> --head <fork-owner>:<current-branch> --title "<PR title>" --body-file pr_body.md`
+10. Report the created PR URL and summarize what was filled in each template section.
 
 ## Notes
 
 - Always create PRs as draft unless explicitly instructed otherwise.
 - Never create a PR from `main` or `trunk`.
+- For forked repositories, submit the PR to the upstream (fork source) by default. Only target the fork itself if the user explicitly requests it (e.g., internal fork workflow).
+- When targeting upstream from a fork, confirm the upstream `nameWithOwner` and base branch with the user before creating the PR if there is any ambiguity.
 - If no template exists, ask for confirmation before using a fallback custom structure.
 - Keep PR descriptions concise but complete, and ensure they reflect the actual diff.
