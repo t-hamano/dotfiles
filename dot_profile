@@ -12,3 +12,10 @@ fi
 if [ -f "$HOME/.cargo/env" ]; then
     . "$HOME/.cargo/env"
 fi
+
+# Colorize svn diff output (requires colordiff in PATH)
+if command -v colordiff >/dev/null 2>&1; then
+    svndiff() {
+        svn diff "$@" | colordiff
+    }
+fi
