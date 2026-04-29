@@ -25,7 +25,9 @@ Create a GitHub pull request by reading `pull_request_template.md`, building the
    - Prefer `.github/pull_request_template.md` or `.github/PULL_REQUEST_TEMPLATE.md`.
    - If not found, search for `pull_request_template.md` in the repository and use that file.
    - For forks, prefer the upstream repository's template over the fork's local copy if they differ.
-7. Build the PR description by following the template structure exactly (keep headings/sections, fill required fields, remove unresolved placeholders).
+7. Build the PR description by following the template structure exactly (keep headings/sections, fill required fields, remove unresolved placeholders). The description must:
+   - Be as concise as possible. Cut anything that does not help a reviewer understand the change.
+   - Focus on **what problem was solved** and **the approach taken**, not a line-by-line account of the technical changes (the diff already shows that).
 8. Save the PR body to a temporary file (for example, `pr_body.md`) so formatting is preserved.
 9. Create the PR in draft status with an explicit head branch:
    - Non-fork: `gh pr create --draft --base <base-branch> --head <current-branch> --title "<PR title>" --body-file pr_body.md`
@@ -39,4 +41,4 @@ Create a GitHub pull request by reading `pull_request_template.md`, building the
 - For forked repositories, submit the PR to the upstream (fork source) by default. Only target the fork itself if the user explicitly requests it (e.g., internal fork workflow).
 - When targeting upstream from a fork, confirm the upstream `nameWithOwner` and base branch with the user before creating the PR if there is any ambiguity.
 - If no template exists, ask for confirmation before using a fallback custom structure.
-- Keep PR descriptions concise but complete, and ensure they reflect the actual diff.
+- Keep PR descriptions as concise as possible. Describe the problem solved and the approach, not what the code technically does.
