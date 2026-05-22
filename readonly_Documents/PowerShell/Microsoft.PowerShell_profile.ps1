@@ -15,3 +15,8 @@ if (Get-Command git -ErrorAction SilentlyContinue) {
 if (Get-Command chezmoi -ErrorAction SilentlyContinue) {
 	Set-Alias -Name cm -Value chezmoi -Scope Global
 }
+
+# posh-git: git tab completion (branch names; resolves aliases like b -> branch)
+if (Get-Module -ListAvailable posh-git) {
+	Import-Module posh-git
+}
