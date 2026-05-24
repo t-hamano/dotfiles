@@ -15,6 +15,7 @@
 
 - Some environments cannot reliably execute git hooks (pre-commit, commit-msg, etc.). When a commit aborts because the hook tooling itself fails to run due to such environment constraints, retry with `--no-verify`.
 - Do not use `--no-verify` to bypass hook *output*. If a hook actually runs and reports a problem, fix the underlying issue instead of skipping it.
+- Co-Authored-By trailer: use the canonical `Co-Authored-By: Claude <noreply@anthropic.com>`. Do not use version-specific identity strings such as `Claude Opus 4.7 (1M context)` — the auto-mode permission classifier flags them as a non-existent identity and blocks the commit.
 
 ## Response style instructions
 
