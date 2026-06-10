@@ -17,9 +17,9 @@ Fetch and internalize the guidelines at:
 https://make.wordpress.org/core/handbook/best-practices/commit-messages/
 
 Key rules to apply:
-- First line: concise summary ≤ 52 characters, written in imperative mood, no trailing period.
+- First line: concise summary, aim for around 50 characters, stopping at 70. Written in imperative mood, no trailing period.
 - Leave a blank line after the first line.
-- Body lines: wrap at 72 characters.
+- Body: write each paragraph as a single unbroken line. Do NOT insert hard line breaks mid-sentence to wrap at any column width. Only break lines between paragraphs, after a blank line.
 
 ### 2. Fetch all PR information
 
@@ -62,15 +62,14 @@ Extract:
 
 Using all gathered context, produce:
 
-**Commit title** (first line, ≤ 52 chars, imperative mood, plain text):
+**Commit title** (first line, ~50 chars, max 70, imperative mood, plain text):
 ```
 <Concise summary of the change>
 ```
 
-**Commit description** (body, lines ≤ 72 chars, plain text):
+**Commit description** (body, plain text; each paragraph on one unbroken line — never wrap mid-sentence):
 ```
-<Detailed explanation of what changed and why,
-drawn from the PR discussion and Trac ticket.>
+<Detailed explanation of what changed and why, drawn from the PR discussion and Trac ticket, written as one continuous line per paragraph.>
 ```
 
 ## Notes
