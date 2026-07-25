@@ -1,6 +1,9 @@
 ---
 name: svn-message
-description: Generate an appropriate SVN commit title and description for a WordPress SVN repository, referencing WordPress commit message best practices, the GitHub PR, and the WordPress Trac ticket.
+description: >-
+  Generate an appropriate SVN commit title and description for a WordPress SVN
+  repository, referencing WordPress commit message best practices, the GitHub
+  PR, and the WordPress Trac ticket.
 ---
 
 Generate a WordPress SVN commit title and commit description by gathering context from multiple sources.
@@ -52,11 +55,20 @@ Read the past commit messages to understand:
 
 ### 4. Fetch the WordPress Trac ticket
 
-If a Trac ticket URL was found in the PR, fetch it with WebFetch.
+If a Trac ticket URL was found in the PR, fetch it with the `wp-trac-ticket`
+skill in default mode (comments and changesets are required — do not use
+`--short`). Do not use WebFetch: Trac serves an HTML login page instead of
+ticket data for unauthenticated requests, so the fetched content is unreliable.
+
+If the script reports that auth is required, invoke `wp-trac-auth` to
+(re)authenticate, then re-run the lookup.
 
 Extract:
 - Ticket title and description.
 - Comments and patch discussion.
+- Comment authors and the reporter — candidates for the `Props` line.
+- Referenced changesets — candidates for a `Follow-up to [NNNNN].` line.
+- Ticket number — for the `Fixes #NNNNN.` / `See #NNNNN.` trailer.
 
 ### 5. Synthesize and generate the commit message
 
@@ -71,6 +83,16 @@ Using all gathered context, produce:
 ```
 <Detailed explanation of what changed and why, drawn from the PR discussion and Trac ticket, written as one continuous line per paragraph.>
 ```
+
+**Trailers** (final paragraph, after a blank line), in WordPress order:
+```
+Follow-up to [NNNNN].          (only when the change builds on a prior changeset)
+Props username1, username2.    (ticket reporter, commenters, PR author, reviewers — omit the committer)
+Fixes #NNNNN.                  (use `See #NNNNN.` when the ticket stays open)
+```
+
+Do not invent props names. Use only usernames that actually appear in the Trac
+ticket or the PR, and list them in order of contribution.
 
 ## Notes
 
