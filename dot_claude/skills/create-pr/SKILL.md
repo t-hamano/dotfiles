@@ -1,6 +1,8 @@
 ---
 name: create-pr
-description: "Use when creating a pull request with GitHub CLI, especially when you must follow pull_request_template.md and open the PR as draft"
+description: >-
+  Use when creating a pull request with GitHub CLI, especially when you must
+  follow pull_request_template.md and open the PR as draft
 ---
 
 Create a GitHub pull request by reading `pull_request_template.md`, building the PR body in that format, and then creating a draft PR with `gh`.
