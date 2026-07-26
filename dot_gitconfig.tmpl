@@ -26,6 +26,8 @@
 	helper = !gh auth git-credential
 [pager]
 	branch = false
+[tag]
+	sort = v:refname
 {{ if eq .chezmoi.os "windows" -}}
 [core]
 	autoCRLF = false
