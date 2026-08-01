@@ -13,6 +13,7 @@
 	pl = pull
 	lo = log --oneline
 	r = restore
+	b-clean = "!f() { base=; for b in trunk main; do git show-ref --verify --quiet refs/heads/$b && { base=$b; break; }; done; [ -n \"$base\" ] || { echo 'no trunk/main branch here'; return 1; }; git switch -q $base || return 1; git branch --format='%(refname:short)' | grep -vxE 'trunk|main' | xargs -r git branch -D; }; f"
 	sync-u = "!branch=$(git branch --show-current) && git fetch upstream && git merge upstream/$branch && git push"
 [init]
 	defaultBranch = main
