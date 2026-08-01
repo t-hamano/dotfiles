@@ -81,8 +81,12 @@ Using all gathered context, produce:
 
 **Commit description** (body, plain text; each paragraph on one unbroken line — never wrap mid-sentence):
 ```
-<Detailed explanation of what changed and why, drawn from the PR discussion and Trac ticket, written as one continuous line per paragraph.>
+<Explanation of what changed and why, drawn from the PR discussion and Trac ticket, written as one continuous line per paragraph.>
 ```
+
+Description rules:
+- Keep it to two paragraphs at most; one paragraph is often enough. Cut restatements of the diff and anything the title already says.
+- Describe the change in terms of behavior and user-visible effect, not implementation detail. Avoid function, method, class, hook, and variable names, and file paths, unless naming one is the only way to make the change understandable.
 
 **Trailers** (final paragraph, after a blank line), in WordPress order:
 ```
