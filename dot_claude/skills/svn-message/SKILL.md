@@ -91,12 +91,13 @@ Description rules:
 **Trailers** (final paragraph, after a blank line), in WordPress order:
 ```
 Follow-up to [NNNNN].          (only when the change builds on a prior changeset)
-Props username1, username2.    (ticket reporter, commenters, PR author, reviewers — omit the committer)
+Props username1, username2.    (ticket reporter, commenters, PR author, reviewers — omit the committer; alphabetical order)
 Fixes #NNNNN.                  (use `See #NNNNN.` when the ticket stays open)
 ```
 
 Do not invent props names. Use only usernames that actually appear in the Trac
-ticket or the PR, and list them in order of contribution.
+ticket or the PR. List them in case-insensitive alphabetical order, and
+deduplicate names that appear in both Trac and the PR.
 
 ## Notes
 
