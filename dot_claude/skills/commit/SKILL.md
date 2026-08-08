@@ -17,5 +17,6 @@ Review differences between the current branch and the main branch (main or trunk
 ## Notes
 
 - Write commit messages in English and emphasize why the change exists.
+- Write the commit title only. Do not add a body/description.
 - Do not commit `.env` files or secret files.
 - If there are no changes to stage, report that explicitly.
