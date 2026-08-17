@@ -1,6 +1,7 @@
 [tools]
 node = "24"
 "npm:diff2html-cli" = "latest"
+"npm:diffity" = "latest"
 "npm:npm-check-updates" = "latest"
 pnpm = "latest"
 python = "3"
