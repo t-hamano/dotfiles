@@ -85,19 +85,23 @@ Using all gathered context, produce:
 ```
 
 Description rules:
-- Keep it to two paragraphs at most; one paragraph is often enough. Cut restatements of the diff and anything the title already says.
+- Keep it short. Two paragraphs at most; one paragraph is often enough. Cut restatements of the diff and anything the title already says.
 - Describe the change in terms of behavior and user-visible effect, not implementation detail. Avoid function, method, class, hook, and variable names, and file paths, unless naming one is the only way to make the change understandable.
+- Lead with what was fixed or implemented, not with a diagnosis of the bug. Background on the cause belongs in the ticket; mention it only in a short clause when the fix makes no sense without it.
 
 **Trailers** (final paragraph, after a blank line), in WordPress order:
 ```
 Follow-up to [NNNNN].          (only when the change builds on a prior changeset)
-Props username1, username2.    (ticket reporter, commenters, PR author, reviewers — omit the committer; alphabetical order)
+Props username1, username2.    (always `wildworks`, plus ticket reporter, commenters, PR author, reviewers — omit the committer; alphabetical order)
 Fixes #NNNNN.                  (use `See #NNNNN.` when the ticket stays open)
 ```
 
-Do not invent props names. Use only usernames that actually appear in the Trac
-ticket or the PR. List them in case-insensitive alphabetical order, and
-deduplicate names that appear in both Trac and the PR.
+Always include `wildworks` in the Props line, whether or not the name appears
+in the Trac ticket or the PR.
+
+Beyond that, do not invent props names. Use only usernames that actually appear
+in the Trac ticket or the PR. List them in case-insensitive alphabetical order,
+and deduplicate names that appear in both Trac and the PR.
 
 ## Notes
 
