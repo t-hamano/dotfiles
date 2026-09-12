@@ -1,0 +1,13 @@
+{{ if ne .chezmoi.os "windows" -}}
+#!/bin/sh
+set -eu
+shared='{{ joinPath .chezmoi.homeDir ".agents/skills" | replace "'" "'\\''" }}'
+claude='{{ joinPath .chezmoi.homeDir ".claude/skills" | replace "'" "'\\''" }}'
+
+mkdir -p "$shared" "$(dirname "$claude")"
+if [ -e "$claude" ] && [ ! -L "$claude" ]; then
+    printf 'Remove the existing path before creating the shared skills link: %s\n' "$claude" >&2
+    exit 1
+fi
+ln -sfn ../.agents/skills "$claude"
+{{ end -}}

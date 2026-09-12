@@ -73,6 +73,23 @@ Manages Claude agent behavior rules, permissions, and custom skills. `CLAUDE.md`
 - chezmoi path: `dot_claude/`
 - target path: `~/.claude/`
 
+### Shared agent skills
+
+The skills in `dot_agents/skills/` are the common configuration for Windows,
+WSL, and macOS. Run `chezmoi apply` in each environment to install them into
+that environment's `~/.agents/skills/`. WSL uses its own Linux home directory.
+
+Codex reads `~/.agents/skills/` directly. The scripts in `.chezmoiscripts/`
+only create `~/.claude/skills` as a directory junction on Windows or a symbolic
+link on WSL/macOS/Linux. Windows junctions require neither Developer Mode nor
+administrator privileges. An existing ordinary directory at this path must be
+removed before the link can be created.
+
+Edit shared skills with `chezmoi edit ~/.agents/skills/<name>/SKILL.md`. Add new
+skills with `chezmoi add ~/.agents/skills/<name>`, then run `chezmoi diff` and
+`chezmoi apply`. Commit and push changes, then use `chezmoi update` in the
+other environments to apply the same skills.
+
 ### Copilot
 
 Manages shared instructions for GitHub Copilot. The template embeds `AGENTS.md` via chezmoi's `{{ include }}` for shared rules.

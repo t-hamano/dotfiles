@@ -1,0 +1,19 @@
+{{ if eq .chezmoi.os "windows" -}}
+$ErrorActionPreference = 'Stop'
+$base = '{{ .chezmoi.homeDir | replace "'" "''" }}'
+$shared = [IO.Path]::GetFullPath((Join-Path $base '.agents/skills'))
+$claude = Join-Path $base '.claude/skills'
+
+New-Item -ItemType Directory -Path $shared, (Split-Path $claude) -Force | Out-Null
+$link = Get-Item -LiteralPath $claude -Force -ErrorAction SilentlyContinue
+if ($link) {
+    if ($link.LinkType -eq 'Junction') {
+        $target = $link.Target | Select-Object -First 1
+        if ([IO.Path]::GetFullPath($target).TrimEnd('\') -eq $shared.TrimEnd('\')) {
+            return
+        }
+    }
+    throw "Remove the existing path before creating the shared skills junction: $claude"
+}
+New-Item -ItemType Junction -Path $claude -Target $shared | Out-Null
+{{ end -}}
