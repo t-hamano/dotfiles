@@ -1,20 +1,6 @@
 {{- $homeDir := .chezmoi.homeDir | replace "\\" "/" -}}
 {
-  "hooks": {
-    "PreToolUse": [
-      {
-        "matcher": "Bash",
-        "hooks": [
-          {
-            "type": "command",
-            "command": "node {{ $homeDir }}/.claude/hooks/pipe-permission.js"
-          }
-        ]
-      }
-    ]
-  },
   "permissions": {
-    "defaultMode": "auto",
     "allow": [
       "Bash(grep *)",
       "Bash(git status *)",
@@ -95,6 +81,21 @@
       "Write(**/.env)",
       "Write(**/.env.*)",
       "Write(**/secrets/**)"
+    ],
+    "defaultMode": "auto"
+  },
+  "hooks": {
+    "PreToolUse": [
+      {
+        "matcher": "Bash",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "node {{ $homeDir }}/.claude/hooks/pipe-permission.js"
+          }
+        ]
+      }
     ]
-  }
+  },
+  "agentPushNotifEnabled": false
 }
