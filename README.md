@@ -90,6 +90,17 @@ skills with `chezmoi add ~/.agents/skills/<name>`, then run `chezmoi diff` and
 `chezmoi apply`. Commit and push changes, then use `chezmoi update` in the
 other environments to apply the same skills.
 
+### Shared MCP servers
+
+MCP servers that shared skills depend on are registered in every environment.
+Codex servers are defined in the managed block of `dot_codex/modify_config.toml`.
+Claude servers are registered with `claude mcp add -s user` by the
+`run_onchange_` scripts in `.chezmoiscripts/`, which re-run whenever the server
+definition changes. `~/.claude.json` itself is not managed because Claude Code
+rewrites it constantly.
+
+- `wordpress-trac`: read-only [WordPress Trac MCP server](https://make.wordpress.org/core/2026/09/24/wordpress-trac-mcp-server/), used by `svn-message`.
+
 ### Copilot
 
 Manages shared instructions for GitHub Copilot. The template embeds `AGENTS.md` via chezmoi's `{{ include }}` for shared rules.

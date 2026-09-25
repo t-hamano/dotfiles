@@ -1,5 +1,6 @@
 {{- /* chezmoi:modify-template */ -}}
-{{- $config := .chezmoi.stdin | replaceAllRegex "(?s)^# chezmoi-managed:start.*?# chezmoi-managed:end\r?\n*" "" | replaceAllRegex "\\s+$" "" -}}
+{{- /* Top-level keys go in the leading block; tables go in the trailing block so they don't capture the unmanaged top-level keys. */ -}}
+{{- $config := .chezmoi.stdin | replaceAllRegex "(?s)# chezmoi-managed(-tables)?:start.*?# chezmoi-managed(-tables)?:end\r?\n*" "" | replaceAllRegex "^\\s+" "" | replaceAllRegex "\\s+$" "" -}}
 # chezmoi-managed:start
 approval_policy = "on-request"
 approvals_reviewer = "auto_review"
@@ -7,3 +8,8 @@ sandbox_mode = "workspace-write"
 # chezmoi-managed:end
 
 {{ $config }}
+
+# chezmoi-managed-tables:start
+[mcp_servers.wordpress-trac]
+url = "https://wordpress-trac-mcp-server-prod.a8c-aiops.workers.dev/mcp"
+# chezmoi-managed-tables:end

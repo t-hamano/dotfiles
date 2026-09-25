@@ -1,0 +1,13 @@
+{{ if ne .chezmoi.os "windows" -}}
+#!/bin/sh
+set -eu
+name='wordpress-trac'
+url='https://wordpress-trac-mcp-server-prod.a8c-aiops.workers.dev/mcp'
+
+if ! command -v claude >/dev/null 2>&1; then
+    printf 'claude not found; skipping MCP server registration: %s\n' "$name" >&2
+    exit 0
+fi
+claude mcp remove -s user "$name" >/dev/null 2>&1 || true
+claude mcp add -s user --transport http "$name" "$url"
+{{ end -}}

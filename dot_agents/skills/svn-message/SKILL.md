@@ -55,13 +55,13 @@ Read the past commit messages to understand:
 
 ### 4. Fetch the WordPress Trac ticket
 
-If a Trac ticket URL was found in the PR, fetch it with the `wp-trac-ticket`
-skill in default mode (comments and changesets are required — do not use
-`--short`). Do not use WebFetch: Trac serves an HTML login page instead of
-ticket data for unauthenticated requests, so the fetched content is unreliable.
+If a Trac ticket URL was found in the PR, fetch it with the `getTicket` tool of
+the `wordpress-trac` MCP server (comments and changesets are required). Do not
+use WebFetch: Trac serves an HTML login page instead of ticket data for
+unauthenticated requests, so the fetched content is unreliable.
 
-If the script reports that auth is required, invoke `wp-trac-auth` to
-(re)authenticate, then re-run the lookup.
+If the `wordpress-trac` MCP server is unavailable, tell the user to run
+`chezmoi apply` to register it, then stop.
 
 Extract:
 - Ticket title and description.

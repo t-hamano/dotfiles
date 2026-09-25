@@ -1,0 +1,14 @@
+{{ if eq .chezmoi.os "windows" -}}
+$name = 'wordpress-trac'
+$url = 'https://wordpress-trac-mcp-server-prod.a8c-aiops.workers.dev/mcp'
+
+if (-not (Get-Command claude -ErrorAction SilentlyContinue)) {
+    Write-Warning "claude not found; skipping MCP server registration: $name"
+    return
+}
+claude mcp remove -s user $name *> $null
+claude mcp add -s user --transport http $name $url
+if ($LASTEXITCODE -ne 0) {
+    throw "Failed to register MCP server: $name"
+}
+{{ end -}}
